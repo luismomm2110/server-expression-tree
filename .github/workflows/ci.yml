@@ -2,7 +2,7 @@ name: Desafio Certi
 on:
   push:
     branches:
-      - workflow-branch
+      - main
   pull_request:
     branches:
       - main
