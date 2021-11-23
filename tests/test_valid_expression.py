@@ -5,6 +5,21 @@ from CheckInput import *
 
 
 class TestValidExpression(unittest.TestCase):
+    def test_validate_right_input(self):
+        c = CheckExpression("1*2+3*(4+5)")
+        result = c.validate_expression()
+        self.assertTrue(result)
+
+    def test_validate_input_without_operator_before_parentheses(self):
+        c = CheckExpression("1*2+3(4+5)")
+        result = c.validate_expression
+        self.assertFalse(result)
+
+    def test_validate_input_with_wrong_char(self):
+        c = CheckExpression("a+1")
+        result = c.validate_expression()
+        self.assertFalse(result)
+
     def test_with_only_numbers(self):
         c = CheckExpression("11")
         result = c._check_if_has_wrong_characters()
