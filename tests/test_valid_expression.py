@@ -1,7 +1,7 @@
 import unittest
 from unittest import result
 
-from handle_get_expression import *
+from CheckInput import *
 
 
 class TestValidExpression(unittest.TestCase):
@@ -57,9 +57,10 @@ class TestValidExpression(unittest.TestCase):
         self.assertFalse(result)
 
     def test_if_five_digits_are_valid(self):
-        c= CheckExpression("11111*55555")
+        c = CheckExpression("11111*55555")
         result = c._check_if_has_only_number_with_five_digits()
         self.assertTrue(result)
-        
+
+
 if __name__ == '__main__':
     unittest.main()
