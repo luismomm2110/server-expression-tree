@@ -10,5 +10,5 @@ def handle_get(expression):
 
 
 if __name__ == '__main__':
-    app.debug = False
+    #app.debug = False
     app.run(host='0.0.0.0', port=3001)
