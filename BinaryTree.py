@@ -1,8 +1,6 @@
-# Node is one of: [ () * / + -] or number between [0,99999]
-
-
-class Node:
+class BinaryTree():
     def __init__(self, value):
         self.left = None
         self.right = None
         self.value = value
+        self.operator = False
