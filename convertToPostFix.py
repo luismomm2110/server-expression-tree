@@ -1,65 +1,58 @@
-class ConvertorToPostfix:
+class Stack:
     def __init__(self):
-        self.top = -1
-        self.stack = []
+        self.stack = [] 
+
+        def push(self, data):
+            self.stack.append(data)
+
+        def pop(self):
+            if self.stack:
+                return self.stack.pop()
+            else: 
+                return None
+
+        def size(self):
+            return len(self.stack)
+
+        def empty(self):
+            return True if self.size() == 0 else False 
+
+        def peek(self):
+            return self.stack[-1]
+
+class ConvertorToPostfix:
+    def __init__(self, token_list):
+        self.stack = Stack()
         self.output = []
-        self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+        self.precedence = {'(' : 1, '+': 2, '-': 2, '*': 3, '/': 3}
+        self.token_list = token_list
 
-    def is_empty(self):
-        return True if self.top == -1 else False
-
-    def peek(self):
-        return self.stack[-1]
-
-    def pop(self):
-        if not self.is_empty():
-            self.top -= 1
-            return self.stack.pop()
-        else:
-            return "$"
-
-    def push(self, token):
-        self.top += 1
-        self.stack.append(token)
-
-    def is_operand(self, token):
-        return token.isalpha()  # ???
-
-    def not_greater_precedence(self, token):
-        try:
-            a = self.precedence[token]
-            b = self.precedence[self.peek()]
-            return True if a <= b else False
-        except KeyError:
-            return False
-
-    def find_precendent_parentheses_in_stack(self):
-        while ((not self.is_empty()) and self.peek() != '('):
-            a = self.pop()
-            self.output.append(a)
-            if (not self.isEmpty() and self.peek() != '('):
-                return -1
-            else:
-                self.pop()
-
-    def translate_infix_to_postfix(self, infix_tokens):
-        for token in infix_tokens:
-            if self.is_operand(token):
+    def process_subexpression(self):
+                top_token = self.stack.pop()
+                while top_token != '(':
+                    self.output.append(top_token)
+                    top_token = self.stack.pop()
+                
+    def translate_infix_to_postfix(self):
+        for token in self.token_list:
+            if token in "0123456789":
                 self.output.append(token)
-
             elif token == '(':
-                self.push(token)
-
+                self.stack.push(token)
             elif token == ')':
-                self.find_precendent_parentheses_in_stack()
-
+                self.process_subexpression()
             else:
-                while (not self.is_empty()
-                       and self.not_greater_precedence(token)):
-                    self.output.append(self.pop())
-                self.push(token)
+                while (not self.stack.empty()) and (self.precedence[self.stack.peek()] >= self.precedence[token]):
+                    self.output.append(self.stack.pop())
+                self.stack.push(token)
 
-        while not self.is_empty():
-            self.output.append(self.pop())
+        while not self.stack.empty():
+            self.output.append(self.stack.pop())
 
         return self.output
+            
+               
+
+
+
+    

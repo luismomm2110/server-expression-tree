@@ -6,7 +6,7 @@ from convertToPostFix import *
 
 class ConvertToPostfixTest(TestCase):
     def test_simple_add(self):
-        c = ConvertorToPostfix()
-        result = c.translate_infix_to_postfix(['1', '+', '1'])
+        c = ConvertorToPostfix(['1', '+', '1'])
+        result = c.translate_infix_to_postfix()
 
         self.assertListEqual(result, ['1', '1', '+'])
