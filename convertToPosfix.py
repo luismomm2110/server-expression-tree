@@ -1,26 +1,26 @@
-class Stack:
+class Stack():
     def __init__(self):
         self.stack = [] 
 
-        def push(self, data):
-            self.stack.append(data)
+    def push(self, data):
+        self.stack.append(data)
 
-        def pop(self):
-            if self.stack:
-                return self.stack.pop()
-            else: 
-                return None
+    def pop(self):
+        if self.stack:
+            return self.stack.pop()
+        else: 
+            return None
 
-        def size(self):
-            return len(self.stack)
+    def size(self):
+        return len(self.stack)
 
-        def empty(self):
-            return True if self.size() == 0 else False 
+    def empty(self):
+        return True if self.size() == 0 else False 
 
-        def peek(self):
-            return self.stack[-1]
+    def peek(self):
+        return self.stack[-1]
 
-class ConvertorToPostfix:
+class ConvertorToPosfix:
     def __init__(self, token_list):
         self.stack = Stack()
         self.output = []
@@ -33,9 +33,9 @@ class ConvertorToPostfix:
                     self.output.append(top_token)
                     top_token = self.stack.pop()
                 
-    def translate_infix_to_postfix(self):
+    def translate_infix_to_posfix(self):
         for token in self.token_list:
-            if token in "0123456789":
+            if token.isnumeric():
                 self.output.append(token)
             elif token == '(':
                 self.stack.push(token)
