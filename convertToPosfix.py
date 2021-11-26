@@ -1,24 +1,4 @@
-class Stack():
-    def __init__(self):
-        self.stack = [] 
-
-    def push(self, data):
-        self.stack.append(data)
-
-    def pop(self):
-        if self.stack:
-            return self.stack.pop()
-        else: 
-            return None
-
-    def size(self):
-        return len(self.stack)
-
-    def empty(self):
-        return True if self.size() == 0 else False 
-
-    def peek(self):
-        return self.stack[-1]
+from Stack import *
 
 class ConvertorToPosfix:
     def __init__(self, token_list):
@@ -27,7 +7,7 @@ class ConvertorToPosfix:
         self.precedence = {'(' : 1, '+': 2, '-': 2, '*': 3, '/': 3}
         self.token_list = token_list
 
-    def process_subexpression(self):
+    def _process_subexpression(self):
                 top_token = self.stack.pop()
                 while top_token != '(':
                     self.output.append(top_token)
@@ -40,7 +20,7 @@ class ConvertorToPosfix:
             elif token == '(':
                 self.stack.push(token)
             elif token == ')':
-                self.process_subexpression()
+                self._process_subexpression()
             else:
                 while (not self.stack.empty()) and (self.precedence[self.stack.peek()] >= self.precedence[token]):
                     self.output.append(self.stack.pop())
