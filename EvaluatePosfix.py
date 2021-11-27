@@ -1,31 +1,34 @@
+from pdb import set_trace
 from Stack import *
 
 
 class EvaluatePostFix:
-    def __init__(self):
+    def __init__(self, expression):
         self.stack = Stack()
+        self.expression = expression
         self.OPERATORS = set(['+', '-', '*', '/'])
-        
 
-    def evaluate_posfix(self, expression):
-        if len(expression) == 0:
-            return str(self.stack.pop())
+    def evaluate_posfix(self):
+        if len(self.expression) == 0:
+            return str(self.stack.peek())
 
-        if expression[0] not in self.OPERATORS: 
-            self.stack.push(expression[0])
-            self.evaluate_posfix(expression[1:])
-        else: 
-            first_operand = self.stack.pop()
-            second_operand = self.stack.pop()
+        if self.expression[0] not in self.OPERATORS:
+            self.stack.push(self.expression[0])
+            self.expression = self.expression[1:]
+            return self.evaluate_posfix()
+        else:
+            first_operand = int(self.stack.pop())
+            second_operand = int(self.stack.pop())
 
-            if expression[0] == '+':
+            if self.expression[0] == '+':
                 result = first_operand + second_operand
-            elif expression[0] == '-':
-                result = first_operand - second_operand
-            elif expression[0] == '*':
+            elif self.expression[0] == '-':
+                result = second_operand - first_operand
+            elif self.expression[0] == '*':
                 result = first_operand * second_operand
-            elif expression[0] == '/':
-                result = first_operand / second_operand
+            elif self.expression[0] == '/':
+                result = second_operand / first_operand
 
-            self.evaluate_posfix(expression[1:])
-    
+            self.stack.push(result)
+            self.expression = self.expression[1:]
+            return self.evaluate_posfix()
