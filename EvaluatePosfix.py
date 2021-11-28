@@ -1,11 +1,12 @@
+from pdb import set_trace
 from Stack import *
 
 
 class EvaluatePostFix:
     def __init__(self, expression):
         self.stack = Stack()
-        self.OPERATORS = set(['+', '-', '*', '/'])
         self.expression = expression
+        self.OPERATORS = set(['+', '-', '*', '/'])
 
     def evaluate_posfix(self):
         if len(self.expression) == 0:
@@ -27,7 +28,8 @@ class EvaluatePostFix:
                 result = first_operand * second_operand
             elif self.expression[0] == '/':
                 result = second_operand / first_operand
-            self.expression = self.expression[1:]
+
             self.stack.push(result)
+            self.expression = self.expression[1:]
 
             return self.evaluate_posfix()
