@@ -5,7 +5,7 @@ from Tokenizer import *
 
 
 class TestTokenizer(unittest.TestCase):
-    def single_number(self):
+    def test_single_number(self):
         result = token_expressions("32")
 
         self.assertListEqual(result, ["32"])
