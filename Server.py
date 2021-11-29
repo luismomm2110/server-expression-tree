@@ -10,6 +10,7 @@ app = Flask(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def handle_get(path):
+    print(request.url)
     checker = CheckExpression(path)
 
     if checker.check_if_has_more_than_single_parentheses():
@@ -25,9 +26,9 @@ def handle_get(path):
         except:
             result = "insira uma expressao matematica valida"
 
-    output_data = {'status': 'OK', 'result': result}
-    return jsonify("result": result)
+    output_data = {'result': result}
+    return jsonify(output_data)
 
 if __name__ == '__main__':
     #app.debug = False
-    app.run(host='0.0.0.0', port=3001)
+    app.run(host='0.0.0.0', port=3000)

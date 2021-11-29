@@ -34,3 +34,15 @@ class ConvertToPosfix(TestCase):
         result = c.translate_infix_to_posfix()
 
         self.assertListEqual(result, ['1', '3.2', '+'])
+
+    def test_with_negative_start(self):
+        c = ConvertorToPosfix(['-', '1042', '+', '1'])
+        result = c.translate_infix_to_posfix()
+        
+        self.assertListEqual(result, ["-1042", "1", "+"])
+
+    def test_with_negative_after_operator(self):
+        c = ConvertorToPosfix(["3", "*", "-", "2"])
+        result = c.translate_infix_to_posfix()
+        
+        self.assertListEqual(result, ["3", "-2", "*"])

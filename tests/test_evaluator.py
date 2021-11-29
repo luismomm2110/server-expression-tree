@@ -1,6 +1,5 @@
 from unittest import result, TestCase
 import unittest
-
 from EvaluatePosfix import *
 
 
@@ -23,3 +22,4 @@ class TestEvaluator(unittest.TestCase):
         result = e.evaluate_posfix()
 
         self.assertEqual(result, '4.3')
+    

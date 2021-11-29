@@ -45,3 +45,8 @@ class TestTokenizer(unittest.TestCase):
         result = token_expressions("2+3.1")
 
         self.assertListEqual(result, ['2', '+', '3.1'])
+
+    def test_with_negative_start(self):
+        result = token_expressions("-1042+1")
+
+        self.assertListEqual(result, ["-", "1042", "+", "1"])
