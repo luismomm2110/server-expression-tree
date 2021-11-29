@@ -13,6 +13,6 @@ COPY . /app
 
 ENTRYPOINT ["python3"]
 
-CMD ["server.py"]
+CMD ["Server.py"]
 
 
