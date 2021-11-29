@@ -1,7 +1,7 @@
 import unittest
 from unittest import result, TestCase
 
-from convertToPosfix import *
+from convertToPostFix import *
 
 
 class ConvertToPosfix(TestCase):
@@ -10,6 +10,7 @@ class ConvertToPosfix(TestCase):
         result = c.translate_infix_to_posfix()
 
         self.assertListEqual(result, ['1', '1', '+'])
+
     def test_double_digits_add(self):
         c = ConvertorToPosfix(['32', '+', '1'])
         result = c.translate_infix_to_posfix()
@@ -18,12 +19,18 @@ class ConvertToPosfix(TestCase):
 
     def test_multplication(self):
         c = ConvertorToPosfix(['8', '-', '2', '*', '3'])
-        result = c.translate_infix_to_posfix() 
+        result = c.translate_infix_to_posfix()
 
         self.assertListEqual(result, ['8', '2', '3', '*', '-'])
 
     def test_with_parentheses(self):
         c = ConvertorToPosfix(['(', '1', '-', '2', ')', '*', '3'])
-        result = c.translate_infix_to_posfix() 
+        result = c.translate_infix_to_posfix()
 
         self.assertListEqual(result, ['1', '2', '-', '3', '*'])
+
+    def test_with_float_number(self):
+        c = ConvertorToPosfix(['1', '+', '3.2'])
+        result = c.translate_infix_to_posfix()
+
+        self.assertListEqual(result, ['1', '3.2', '+'])

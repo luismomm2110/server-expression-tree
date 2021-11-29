@@ -40,3 +40,8 @@ class TestTokenizer(unittest.TestCase):
         result = token_expressions("1+(3+2)")
 
         self.assertListEqual(result, ['1', '+', '(', '3', '+', '2', ')'])
+
+    def test_float_number(self):
+        result = token_expressions("2+3.1")
+
+        self.assertListEqual(result, ['2', '+', '3.1'])
