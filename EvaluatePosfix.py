@@ -1,4 +1,3 @@
-from pdb import set_trace
 from Stack import *
 
 
