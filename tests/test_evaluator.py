@@ -1,6 +1,5 @@
 from unittest import result, TestCase
 import unittest
-
 from EvaluatePosfix import *
 
 
@@ -23,3 +22,9 @@ class TestEvaluator(unittest.TestCase):
         result = e.evaluate_posfix()
 
         self.assertEqual(result, '4.3')
+
+    def test_with_negative(self):
+        e = EvaluatePostFix(["-1042", "1", "+"])
+        result = e.evaluate_posfix()
+
+        self.assertEqual(result, "-1041.0")

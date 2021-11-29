@@ -1,12 +1,30 @@
 from Stack import *
+import re
 
 
 class ConvertorToPosfix:
     def __init__(self, token_list):
         self.stack = Stack()
         self.output = []
+        self.operators = ["+", "-", "*", "/"]
         self.precedence = {'(': 1, '+': 2, '-': 2, '*': 3, '/': 3}
         self.token_list = token_list
+
+    def _check_if_is_number(self, token):
+        return bool(re.search(r'\d', token))
+
+    def _handle_unary_operator_neg(self, input_list):
+        if input_list[0] == "-":
+            input_list[1] = "-" + input_list[1]
+            input_list.pop(0)
+
+        for i in range(len(input_list)):
+            if input_list[i] == "-" and input_list[
+                    i - 1] in self.precedence.keys():
+                input_list[i + 1] = "-" + input_list[i + 1]
+                input_list[i] = ""
+
+        return list(filter(None, input_list))
 
     def _process_subexpression(self):
         top_token = self.stack.pop()
@@ -15,8 +33,10 @@ class ConvertorToPosfix:
             top_token = self.stack.pop()
 
     def translate_infix_to_posfix(self):
+        self.token_list = self._handle_unary_operator_neg(self.token_list)
+
         for token in self.token_list:
-            if token.isdigit() or '.' in token:
+            if self._check_if_is_number(token) or "." in token:
                 self.output.append(token)
             elif token == '(':
                 self.stack.push(token)
