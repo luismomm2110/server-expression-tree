@@ -7,10 +7,10 @@ from convertToPostFix import *
 
 app = Flask(__name__)
 
-
-@app.route('/<expression>', methods=["GET"])
-def handle_get(expression):
-    checker = CheckExpression(expression)
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def handle_get(path):
+    checker = CheckExpression(path)
 
     if checker.check_if_has_more_than_single_parentheses():
         result = r"expressao deve conter apenas um parenteses"
@@ -18,16 +18,15 @@ def handle_get(expression):
         result = r"numero deve estar no intervalo [-99999,99999]"
     else:
         try:
-            list_of_tokens = token_expressions(expression)
+            list_of_tokens = token_expressions(path)
             postfix_expression = ConvertorToPosfix(
                 list_of_tokens).translate_infix_to_posfix()
             result = EvaluatePostFix(postfix_expression).evaluate_posfix()
         except:
-            result = "insira uma expressao matemática válida"
+            result = "insira uma expressao matematica valida"
 
     output_data = {'status': 'OK', 'result': result}
-    return jsonify(output_data)
-
+    return jsonify("result": result)
 
 if __name__ == '__main__':
     #app.debug = False
