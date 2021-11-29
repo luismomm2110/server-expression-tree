@@ -16,7 +16,7 @@ class ConvertorToPosfix:
 
     def translate_infix_to_posfix(self):
         for token in self.token_list:
-            if token.isnumeric():
+            if token.isdigit() or '.' in token:
                 self.output.append(token)
             elif token == '(':
                 self.stack.push(token)

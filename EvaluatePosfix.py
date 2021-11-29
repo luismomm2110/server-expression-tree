@@ -10,15 +10,15 @@ class EvaluatePostFix:
 
     def evaluate_posfix(self):
         if len(self.expression) == 0:
-            return str(self.stack.peek())
+            return str(float(self.stack.peek()))
 
         if self.expression[0] not in self.OPERATORS:
             self.stack.push(self.expression[0])
             self.expression = self.expression[1:]
             return self.evaluate_posfix()
         else:
-            first_operand = int(self.stack.pop())
-            second_operand = int(self.stack.pop())
+            first_operand = float(self.stack.pop())
+            second_operand = float(self.stack.pop())
 
             if self.expression[0] == '+':
                 result = first_operand + second_operand
@@ -31,4 +31,5 @@ class EvaluatePostFix:
 
             self.stack.push(result)
             self.expression = self.expression[1:]
+
             return self.evaluate_posfix()
