@@ -8,6 +8,12 @@ class EvaluatePostFix:
         self.expression = expression
         self.OPERATORS = set(['+', '-', '*', '/'])
 
+    def _handle_signals(self, operand):
+        if operand[0] == "-":
+            return -1 * float(operand[1:])
+        else:
+            return float(operand)
+
     def evaluate_posfix(self):
         if len(self.expression) == 0:
             return str(float(self.stack.peek()))
@@ -17,8 +23,8 @@ class EvaluatePostFix:
             self.expression = self.expression[1:]
             return self.evaluate_posfix()
         else:
-            first_operand = float(self.stack.pop())
-            second_operand = float(self.stack.pop())
+            first_operand = self._handle_signals(str(self.stack.pop()))
+            second_operand = self._handle_signals(str(self.stack.pop()))
 
             if self.expression[0] == '+':
                 result = first_operand + second_operand

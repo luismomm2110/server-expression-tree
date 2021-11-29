@@ -19,12 +19,12 @@ class ConvertorToPosfix:
             input_list.pop(0)
 
         for i in range(len(input_list)):
-            print(i)
-            if input_list[i] == "-" and input_list[i-1] in self.precedence.keys():
-                input_list[i+1] = "-" + input_list[i+1]
-                input_list.pop(i)
+            if input_list[i] == "-" and input_list[
+                    i - 1] in self.precedence.keys():
+                input_list[i + 1] = "-" + input_list[i + 1]
+                input_list[i] = ""
 
-        return(input_list)
+        return list(filter(None, input_list))
 
     def _process_subexpression(self):
         top_token = self.stack.pop()
